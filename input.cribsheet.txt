@@ -1,0 +1,129 @@
+
+The XRbinary program needs the following input data files:
+
+Five tables providing information about specific intensities and
+gravity darkening: 
+  IperpTable.dat
+  LDTable.dat
+  GDTable.dat
+  ZzetaTable.dat
+  IBBfilterTable.dat
+
+A parameter file must be specified on the command line in
+the form
+    XRbinary.exe parfilename
+The program writes out two files whose names are constructed
+from parfilename:
+    parfilename.SysPars    =  file with system parameters
+    parfilename.LC         =  file with light curves.
+The parfile is made up of keywords specifying the parameters
+of the model.  The recognized keywords are:
+
+Miscellaneous keywords:
+   COMMENT=         Comment line
+   blank line       blank lines have  no effect
+   END              Terminates reading of parameter file
+   VERBOSE=         ON or OFF
+   DIAGNOSTICS=     keyword  diagnosephase  diagnoseband
+                          keywords:
+                             INSPECTINPUT
+                             INSPECTSYSPARS
+                             INSPECTSTAR2TILES
+                             INSPECTDISKTILES
+                             INSPECTYLIMITS
+                             INSPECTESCAPE  phase bandpass
+                             INSPECTHEATING
+                             NOCHECKPARS
+
+Keywords that control the basic properties of the model
+   STAR1=           ON or OFF
+   STAR2=           ON or OFF
+   STAR2SPOTS=      ON or OFF
+   DISK=            ON or OFF
+   DISKRIM=         ON or OFF
+   DISKTORUS=       ON or OFF
+   INNERDISK=       ON or OFF
+   DISKSPOTS=       ON or OFF
+   ADC=             ON or OFF
+   THIRDLIGHT=      ON or OFF
+   IRRADIATION=     ON or OFF
+
+Keywords referring to the orbital light curve.
+   PHASES=          minphase   maxphase   deltaphase
+   PHASEOFFSET=     phaseoffset
+   BANDPASS=        FILTER  filtername
+                       or
+                    SQUARE  minwavelength  maxwavelength                 
+   NORMALIZE=       OFF            
+                     or
+                    MAXVALUE   maxvalue
+                     or
+                    FITDATA  filtername
+                     or
+                    FITDATA  SQUARE minlambda maxlambda
+
+Keywords referring to the whole system
+   PERIOD=          period
+   K2=              K2             \  One but only one of these
+   M1=              m1             /  keywords may be be used
+   MASSRATIO=       q=m2/m1
+   INCLINATION=     syspars.i
+
+Keywords referring to star 1
+   STAR1LUM=        star1.L
+   STAR1TEMP=       star1.T
+
+Keywords referring to star 2
+   STAR2TILES=      targetNtiles
+   STAR2TEMP=       meanT
+   STAR2ALBEDO=     albedo
+
+   STAR2SPOT=       theta phi radius spotToverStarT 
+                         (angles in degrees; multiple spots allowed)
+
+Keywords referring to the accretion disk
+   DISKTILES=       targetNtiles
+   DISKE=           eccentricity
+   DISKZETAZERO=    zetazero
+   DISKALBEDO=      albedo
+
+   MAINDISKA=       amin   amax
+   MAINDISKH=       Hedge  Hpow
+   MAINDISKT=       POWERLAW  Tpow  maindiskL
+                        or
+                    VISCOUS  maindiskL
+
+   DISKEDGET=       Tedge Tspot  zetamid  zetawidth
+
+   INNERDISKL=      innerdiskL
+   INNERDISKT=      innerdiskT
+
+   DISKRIMAWIDTH=   awidth
+   DISKRIMPARS=     SINUSOID  Hmax Hmin ZetaHmax   Tmax Tmin ZetaTmax
+                       or
+                    POINT    Zeta_i   H_i   T_i
+
+   DISKTORUSAZERO=  azero
+   DISKTORUSAWIDTH= awidth
+   DISKTORUSPARS=   SINUSOID  Hmax Hmin ZetaHmax   Tmax Tmin ZetaTmax
+                     or
+                    POINT    Zeta_i   H_i   T_i
+
+   DISKSPOT=        zetamin  zetamax  amin  amax  newToverT
+
+keywords referring to the ADC
+   ADCLUM=          adc.L
+   ADCHEIGHT=       adc.height
+
+keywords referring to the flux from a "third light"
+   3rdLIGHTPHASE=    thirdlight.orbphase
+   3rdLIGHTFRACTION= FILTER  filtername  fraction
+                      or
+                     SQUARE  minwavelength  maxwavelength  fraction
+
+
+keywords referring to the reading of files with observed
+light curves:
+   READDATA=         FILTER filtername filename
+                      or
+                     SQUARE minlambda maxlambda filename
